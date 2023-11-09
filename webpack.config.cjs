@@ -10,7 +10,7 @@ const entries = {};
 const htmlPlugins = [];
 
 basenames.forEach((name) => {
-  entries[name] = `./src/components/${name}.tsx`;
+  entries[name] = `./src/chunks/${name}.tsx`;
   htmlPlugins.push(
     new HtmlWebpackPlugin({
       template: `./src/html/${name}.html`,
