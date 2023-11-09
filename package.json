@@ -4,7 +4,9 @@
   "description": "",
   "scripts": {
     "build": "webpack --mode=production",
-    "dev": "webpack --mode=development --watch"
+    "dev": "webpack --mode=development --watch",
+    "create-chunk": "node ./scripts/create-chunk.cjs $0",
+    "delete-chunk": "node ./scripts/delete-chunk.cjs $0"
   },
   "keywords": [
     "react"
