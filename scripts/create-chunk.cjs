@@ -2,7 +2,12 @@ const fs = require("node:fs");
 
 let chunkName = process.argv[3];
 
-fs.writeFileSync(
+const createFile = (path, contents) => {
+  if (fs.existsSync(path)) return console.log(path + " already exists.");
+  fs.writeFileSync(path, contents);
+};
+
+createFile(
   `./src/chunks/${chunkName}.tsx`,
   `import "../css/about.css";
 
@@ -24,7 +29,7 @@ root.render(<App />);
 `
 );
 
-fs.writeFileSync(
+createFile(
   `./src/css/${chunkName}.css`,
   `body {
 	background-color: #FFFFFF;
@@ -33,7 +38,7 @@ fs.writeFileSync(
 }`
 );
 
-fs.writeFileSync(
+createFile(
   `./src/html/${chunkName}.html`,
   `<!DOCTYPE html>
 <html lang="en">
@@ -46,10 +51,12 @@ fs.writeFileSync(
 </html>`
 );
 
-const data = fs.readFileSync("./templateconfig.json");
-const json = JSON.parse(data);
-const basenames = json.basenames;
-if (basenames.indexOf(chunkName) === -1) {
-  json.basenames.push(chunkName);
-  fs.writeFileSync("./templateconfig.json", JSON.stringify(json));
+if (fs.existsSync("./templateconfig.json")) {
+  const data = fs.readFileSync("./templateconfig.json");
+  const json = JSON.parse(data);
+  const basenames = json.basenames;
+  if (basenames.indexOf(chunkName) === -1) {
+    json.basenames.push(chunkName);
+    fs.writeFileSync("./templateconfig.json", JSON.stringify(json));
+  }
 }
