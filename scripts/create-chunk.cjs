@@ -1,11 +1,21 @@
 const fs = require("node:fs");
 
-let chunkName = process.argv[3];
+const chunkName = process.argv[3];
 
 const createFile = (path, contents) => {
   if (fs.existsSync(path)) return console.log(path + " already exists.");
   fs.writeFileSync(path, contents);
 };
+
+const createIfNotExists = (dir) => {
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir);
+  }
+};
+
+createIfNotExists("./src/chunks/");
+createIfNotExists("./src/css/");
+createIfNotExists("./src/html/");
 
 createFile(
   `./src/chunks/${chunkName}.tsx`,
