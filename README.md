@@ -14,6 +14,14 @@ You can create a "chunk" by using the `npm run create-chunk [chunkName]` command
 
 You can delete a "chunk" by using the `npm run delete-chunk [chunkName]` command. This will delete the old generated code.
 
+### Creating A Component
+
+You can create a new component by using the `npm run create-component [componentName]` command. This will generate the TSX class component and CSS code and link them together for Webpack.
+
+### Deleting A Component
+
+You can delete a component by using the `npm run delete-component [componentName]` command. This will delete the old generated code.
+
 ## Production
 
 You can create a production output using `npm run build`. This will compress the files and make them ready for production!
