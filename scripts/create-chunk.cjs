@@ -1,13 +1,27 @@
 const fs = require("node:fs");
+const readline = require("node:readline/promises");
 
 const chunkName = process.argv[3];
 
-if (chunkName === undefined) {
-	console.error("Must provide a chunk name");
+if (chunkName === undefined || chunkName === null) {
+	console.error("Error: Must provide a chunk name");
 	process.exit(1);
 }
-const createFile = (path, contents) => {
-	if (fs.existsSync(path)) return console.log(path + " already exists.");
+
+const rl = readline.createInterface({
+	input: process.stdin,
+	output: process.stdout,
+});
+
+const createFile = async (path, contents) => {
+	if (fs.existsSync(path)) {
+		const response = await rl.question(path + " already exists. Regenerate file? (y/N): ");
+		if (response.toLowerCase() === "y") {
+			fs.writeFileSync(path, contents);
+		} else {
+			return;
+		}
+	}
 	fs.writeFileSync(path, contents);
 };
 
@@ -23,7 +37,7 @@ createIfNotExists("./src/html/");
 
 createFile(
 	`./src/chunks/${chunkName}.tsx`,
-	`import "../css/about.css";
+	`import "../css/${chunkName}.css";
 
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
@@ -41,20 +55,21 @@ class App extends React.Component {
 const root = ReactDOM.createRoot(document.getElementById("app-root"));
 root.render(<App />);
 `,
-);
-
-createFile(
-	`./src/css/${chunkName}.css`,
-	`body {
+)
+	.then(() =>
+		createFile(
+			`./src/css/${chunkName}.css`,
+			`body {
 	background-color: #FFFFFF;
 	color: #121318;
 	font-family: sans-serif;
 }`,
-);
-
-createFile(
-	`./src/html/${chunkName}.html`,
-	`<!DOCTYPE html>
+		),
+	)
+	.then(() =>
+		createFile(
+			`./src/html/${chunkName}.html`,
+			`<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -63,7 +78,9 @@ createFile(
   </head>
   <body><div id="app-root"></div></body>
 </html>`,
-);
+		),
+	)
+	.then(() => rl.close());
 
 if (fs.existsSync("./templateconfig.json")) {
 	const data = fs.readFileSync("./templateconfig.json");
