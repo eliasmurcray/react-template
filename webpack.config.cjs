@@ -20,6 +20,8 @@ basenames.forEach((name) => {
 	);
 });
 
+console.log(entries);
+
 module.exports = {
 	entry: entries,
 	output: {
