@@ -4,7 +4,8 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const fs = require("node:fs");
-const basenames = JSON.parse(fs.readFileSync("./templateconfig.json")).basenames;
+
+const basenames = fs.readdirSync(path.resolve(__dirname, "src/chunks")).filter((file) => path.extname(file).toLowerCase() === ".tsx").map((file) => file.substring(0, file.length - 4));
 
 const entries = {};
 const htmlPlugins = [];
@@ -19,8 +20,6 @@ basenames.forEach((name) => {
 		}),
 	);
 });
-
-console.log(entries);
 
 module.exports = {
 	entry: entries,

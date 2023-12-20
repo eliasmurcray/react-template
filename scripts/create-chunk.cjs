@@ -81,13 +81,3 @@ root.render(<App />);
 		),
 	)
 	.then(() => rl.close());
-
-if (fs.existsSync("./templateconfig.json")) {
-	const data = fs.readFileSync("./templateconfig.json");
-	const json = JSON.parse(data);
-	const basenames = json.basenames;
-	if (basenames.indexOf(chunkName) === -1) {
-		json.basenames.push(chunkName);
-		fs.writeFileSync("./templateconfig.json", JSON.stringify(json));
-	}
-}
