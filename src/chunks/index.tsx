@@ -4,13 +4,13 @@ import * as React from "react";
 import * as ReactDOM from "react-dom/client";
 
 class App extends React.Component {
-  constructor(props: {} | Readonly<{}>) {
-    super(props);
-  }
+	constructor(props: {} | Readonly<{}>) {
+		super(props);
+	}
 
-  render(): React.JSX.Element {
-    return <p>index works!</p>;
-  }
+	render(): React.JSX.Element {
+		return <p>index works!</p>;
+	}
 }
 
 const root = ReactDOM.createRoot(document.getElementById("app-root"));

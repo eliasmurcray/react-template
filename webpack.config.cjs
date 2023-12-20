@@ -5,7 +5,10 @@ const TerserPlugin = require("terser-webpack-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const fs = require("node:fs");
 
-const basenames = fs.readdirSync(path.resolve(__dirname, "src/chunks")).filter((file) => path.extname(file).toLowerCase() === ".tsx").map((file) => file.substring(0, file.length - 4));
+const basenames = fs
+	.readdirSync(path.resolve(__dirname, "src/chunks"))
+	.filter((file) => path.extname(file).toLowerCase() === ".tsx")
+	.map((file) => file.substring(0, file.length - 4));
 
 const entries = {};
 const htmlPlugins = [];
