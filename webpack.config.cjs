@@ -2,8 +2,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
-const fs = require("node:fs");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin"); const fs = require("node:fs");
 
 const basenames = fs
 	.readdirSync(path.resolve(__dirname, "src/chunks"))
@@ -25,6 +24,7 @@ basenames.forEach((name) => {
 });
 
 module.exports = {
+	mode: "development",
 	entry: entries,
 	output: {
 		publicPath: "",
@@ -46,14 +46,10 @@ module.exports = {
 		],
 	},
 	devServer: {
-		static: {
-			directory: path.join(__dirname, "public"),
-		},
-		compress: true,
-		port: 5000,
+		port: 5001,
 	},
 	resolve: {
-		extensions: [".tsx"],
+		extensions: [".tsx", ".js"],
 	},
 	optimization: {
 		minimizer: [new CssMinimizerPlugin(), new TerserPlugin()],

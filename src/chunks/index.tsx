@@ -9,7 +9,7 @@ class App extends React.Component {
 	}
 
 	render(): React.JSX.Element {
-		return <p>index works!</p>;
+		return <p>testing changes!</p>;
 	}
 }
 

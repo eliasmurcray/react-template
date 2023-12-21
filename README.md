@@ -22,6 +22,10 @@ You can create a new component by using the `npm run create-component [component
 
 You can delete a component by using the `npm run delete-component [componentName]` command. This will delete the old generated code.
 
+## Hot-reload Server
+
+In case you do not have a live server extension (perhaps you are developing with Vim), you can host a dev server locally with `npm run serve`. This opens a port on 5001.
+
 ## Production
 
 You can create a production output using `npm run build`. This will compress the files and make them ready for production!
